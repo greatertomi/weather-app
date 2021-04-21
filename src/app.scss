@@ -1,0 +1,55 @@
+.app {
+  padding: 30px;
+}
+
+.weatherCard {
+  margin: 30px 15px;
+  font-size: 16px;
+  #subTitle {
+    margin-top: -15px;
+    opacity: 80%;
+  }
+  #tempDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    #temp {
+      font-size: 75px;
+    }
+    #unit {
+      vertical-align: super;
+      position: relative;
+      top: -30px;
+      span:nth-child(1) {
+        position: relative;
+        top: -8px;
+      }
+      span:nth-child(2) {
+        font-size: 20px;
+      }
+    }
+  }
+  #otherStatsDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    div {
+      text-align: center;
+    }
+  }
+}
+
+.navArrow {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  & *:hover {
+    color: #898787;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
