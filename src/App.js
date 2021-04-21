@@ -1,8 +1,8 @@
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { FcApproval } from "react-icons/fc";
 
 import "./app.scss";
 import Weathers from "./components/Weathers";
+import WeatherChart from "./components/WeatherChart";
 
 const App = () => {
   return (
@@ -13,11 +13,8 @@ const App = () => {
           <FcApproval size={30} />
         </div>
       </div>
-      <div className="navArrow">
-        <BsArrowLeft size={40} />
-        <BsArrowRight size={40} />
-      </div>
       <Weathers />
+      <WeatherChart />
     </div>
   );
 };
