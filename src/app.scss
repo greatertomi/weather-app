@@ -66,3 +66,9 @@
   justify-content: center;
   margin-top: 30px;
 }
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+}

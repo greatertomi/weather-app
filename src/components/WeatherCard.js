@@ -6,7 +6,7 @@ const loading = false;
 
 const WeatherCard = () => {
   return (
-    <Col xs={24} md={12} lg={8}>
+    <Col xs={24} md={12} lg={8} className="card">
       <Card className="weatherCard" loading={loading}>
         <h1>Munich</h1>
         <div id="subTitle">Mon. 4th January, 2021</div>
