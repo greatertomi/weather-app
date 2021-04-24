@@ -1,8 +1,9 @@
-import { FcApproval } from "react-icons/fc";
+import React from 'react';
+import { FcApproval } from 'react-icons/fc';
 
-import "./app.scss";
-import Weathers from "./components/Weathers";
-import WeatherChart from "./components/WeatherChart";
+import './app.scss';
+import Weathers from './components/Weathers';
+import WeatherChart from './components/WeatherChart';
 
 const App = () => {
   return (
