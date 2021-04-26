@@ -5,10 +5,14 @@ import PropTypes from 'prop-types';
 
 const loading = false;
 
-const WeatherCard = ({ location, date, temp, humidity, wind }) => {
+const WeatherCard = ({ location, date, temp, humidity, wind, current }) => {
   return (
     <Col xs={24} md={12} lg={8} className="card">
-      <Card className="weatherCard" loading={loading}>
+      <Card
+        className="weatherCard"
+        loading={loading}
+        style={{ border: current ? '1px solid #177ddc' : null }}
+      >
         <h1>{location}</h1>
         <div id="subTitle">{date}</div>
         <div id="tempDiv">
@@ -40,10 +44,11 @@ const WeatherCard = ({ location, date, temp, humidity, wind }) => {
 
 WeatherCard.propTypes = {
   location: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  date: PropTypes.object.isRequired,
   temp: PropTypes.number.isRequired,
   humidity: PropTypes.number.isRequired,
   wind: PropTypes.number.isRequired,
+  current: PropTypes.bool.isRequired,
 };
 
 export default WeatherCard;

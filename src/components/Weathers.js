@@ -3,52 +3,10 @@ import { Row, Radio } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Moment from 'react-moment';
 
 import WeatherCard from './WeatherCard';
 import { fetchWeatherData } from '../actions/weather';
-
-const weatherData = [
-  {
-    id: 1,
-    location: 'Munich',
-    date: '4th January, 2021',
-    temp: 30,
-    humidity: 4,
-    wind: 34,
-  },
-  {
-    id: 2,
-    location: 'Munich',
-    date: '4th January, 2021',
-    temp: 30,
-    humidity: 4,
-    wind: 34,
-  },
-  {
-    id: 3,
-    location: 'Munich',
-    date: '4th January, 2021',
-    temp: 30,
-    humidity: 4,
-    wind: 34,
-  },
-  {
-    id: 4,
-    location: 'Munich',
-    date: '4th January, 2021',
-    temp: 30,
-    humidity: 4,
-    wind: 34,
-  },
-  {
-    id: 5,
-    location: 'Munich',
-    date: '4th January, 2021',
-    temp: 30,
-    humidity: 4,
-    wind: 34,
-  },
-];
 
 // eslint-disable-next-line no-shadow
 const Weathers = ({ weather, fetchWeatherData }) => {
@@ -73,8 +31,7 @@ const Weathers = ({ weather, fetchWeatherData }) => {
 
   useEffect(async () => {
     await fetchWeatherData();
-    console.log('state weather', weather);
-  }, []);
+  }, [weather]);
 
   return (
     <div>
@@ -97,23 +54,26 @@ const Weathers = ({ weather, fetchWeatherData }) => {
         />
       </div>
       <Row gutter={16} className="scrolling-wrapper-flexbox" ref={cardRef}>
-        {weatherData.map(({ id, location, temp, date, humidity, wind }) => (
-          <WeatherCard
-            key={id}
-            location={location}
-            temp={temp}
-            date={date}
-            humidity={humidity}
-            wind={wind}
-          />
-        ))}
+        {weather.map(
+          ({ id, location, temp, date, humidity, wind, current }) => (
+            <WeatherCard
+              key={id}
+              location={location}
+              temp={temp}
+              date={<Moment date={date} format="Do MMMM, YYYY" />}
+              humidity={humidity}
+              wind={wind}
+              current={current}
+            />
+          )
+        )}
       </Row>
     </div>
   );
 };
 
 Weathers.propTypes = {
-  weather: PropTypes.object.isRequired,
+  weather: PropTypes.array.isRequired,
   fetchWeatherData: PropTypes.func.isRequired,
 };
 

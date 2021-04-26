@@ -29,6 +29,7 @@
         "no-confusing-arrow": "off",
         "operator-linebreak": "off",
         "react/forbid-prop-types": "off",
+        "no-restricted-syntax": "off",
         "import/prefer-default-export": "off",
         "react/jsx-props-no-spreading": "off",
         "react/no-unescaped-entities": "off",
