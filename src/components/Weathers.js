@@ -1,8 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Row, Radio } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import WeatherCard from './WeatherCard';
+import { fetchWeatherData } from '../actions/weather';
 
 const weatherData = [
   {
@@ -37,11 +40,20 @@ const weatherData = [
     humidity: 4,
     wind: 34,
   },
+  {
+    id: 5,
+    location: 'Munich',
+    date: '4th January, 2021',
+    temp: 30,
+    humidity: 4,
+    wind: 34,
+  },
 ];
 
-const Weathers = () => {
+// eslint-disable-next-line no-shadow
+const Weathers = ({ weather, fetchWeatherData }) => {
   const [unit, setUnit] = useState('celsius');
-  const [showLeftArrow, setShowLeftArrow] = useState(true);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const cardRef = useRef();
 
@@ -59,6 +71,11 @@ const Weathers = () => {
     setShowRightArrow(!rightArrowStatus);
   };
 
+  useEffect(async () => {
+    await fetchWeatherData();
+    console.log('state weather', weather);
+  }, []);
+
   return (
     <div>
       <div className="radios">
@@ -70,12 +87,12 @@ const Weathers = () => {
       <div className="navArrow">
         <BsArrowLeft
           size={40}
-          onClick={() => scroll(-200)}
+          onClick={() => scroll(-300)}
           style={{ visibility: showLeftArrow ? 'visible' : 'hidden' }}
         />
         <BsArrowRight
           size={40}
-          onClick={() => scroll(200)}
+          onClick={() => scroll(300)}
           style={{ visibility: showRightArrow ? 'visible' : 'hidden' }}
         />
       </div>
@@ -95,4 +112,13 @@ const Weathers = () => {
   );
 };
 
-export default Weathers;
+Weathers.propTypes = {
+  weather: PropTypes.object.isRequired,
+  fetchWeatherData: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ weather }) => ({
+  weather,
+});
+
+export default connect(mapStateToProps, { fetchWeatherData })(Weathers);
