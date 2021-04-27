@@ -80,3 +80,16 @@
   flex-wrap: nowrap;
   overflow-x: hidden;
 }
+
+.cardSkeleton {
+  height: 160px;
+}
+
+.emptyChartDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .noChartTxt {
+    font-size: 40px;
+  }
+}

@@ -2,9 +2,15 @@ import axios from 'axios';
 
 import { FETCH_DATA } from './types';
 import { WEATHER_URL } from '../utils/constants';
+// import { WEATHER_DATA } from '../utils/mock';
 
 export const fetchWeatherData = () => async (dispatch) => {
   try {
+    // dispatch({
+    //   type: FETCH_DATA,
+    //   payload: WEATHER_DATA
+    // });
+
     const res = await axios.get(WEATHER_URL);
     const originalData = res.data.list;
     const dates = [...new Set(originalData.map((e) => e.dt_txt.slice(0, 10)))];
@@ -25,7 +31,7 @@ export const fetchWeatherData = () => async (dispatch) => {
         dateWeather.length;
       const details = dateWeather.map((e) => ({
         time: e.dt_txt.slice(11),
-        temp: e.main.temp,
+        temp: e.main.temp
       }));
       const oneWeatherData = {
         id: idCount,
@@ -35,14 +41,15 @@ export const fetchWeatherData = () => async (dispatch) => {
         humidity: Math.round(avgHumidity),
         wind: Math.round(avgWind),
         current: idCount === 1,
-        details,
+        details
       };
       weatherData.push(oneWeatherData);
       idCount += 1;
     }
+    console.log(weatherData);
     dispatch({
       type: FETCH_DATA,
-      payload: weatherData,
+      payload: weatherData
     });
   } catch (err) {
     // TODO: Create an alert reducer
