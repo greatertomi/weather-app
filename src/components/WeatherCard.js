@@ -5,13 +5,23 @@ import PropTypes from 'prop-types';
 
 const loading = false;
 
-const WeatherCard = ({ location, date, temp, humidity, wind, current }) => {
+const WeatherCard = ({
+  id,
+  location,
+  date,
+  temp,
+  humidity,
+  wind,
+  current,
+  onClick,
+}) => {
   return (
     <Col xs={24} md={12} lg={8} className="card">
       <Card
         className="weatherCard"
         loading={loading}
         style={{ border: current ? '1px solid #177ddc' : null }}
+        onClick={() => onClick(id)}
       >
         <h1>{location}</h1>
         <div id="subTitle">{date}</div>
@@ -43,12 +53,14 @@ const WeatherCard = ({ location, date, temp, humidity, wind, current }) => {
 };
 
 WeatherCard.propTypes = {
+  id: PropTypes.number.isRequired,
   location: PropTypes.string.isRequired,
   date: PropTypes.object.isRequired,
   temp: PropTypes.number.isRequired,
   humidity: PropTypes.number.isRequired,
   wind: PropTypes.number.isRequired,
   current: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default WeatherCard;

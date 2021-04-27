@@ -7,9 +7,10 @@ import Moment from 'react-moment';
 
 import WeatherCard from './WeatherCard';
 import { fetchWeatherData } from '../actions/weather';
+import { chooseCurrentView } from '../actions/current-weather';
 
 // eslint-disable-next-line no-shadow
-const Weathers = ({ weather, fetchWeatherData }) => {
+const Weathers = ({ weather, fetchWeatherData, chooseCurrentView }) => {
   const [unit, setUnit] = useState('celsius');
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -29,9 +30,20 @@ const Weathers = ({ weather, fetchWeatherData }) => {
     setShowRightArrow(!rightArrowStatus);
   };
 
+  const handleCardClick = (data) => {
+    console.log('parent', data);
+    const [currentActiveCard] = weather.filter((e) => e.current === true);
+    currentActiveCard.current = false;
+
+    const [clickedCard] = weather.filter((e) => e.id === data);
+    clickedCard.current = true;
+
+    chooseCurrentView(weather);
+  };
+
   useEffect(async () => {
     await fetchWeatherData();
-  }, [weather]);
+  }, []);
 
   return (
     <div>
@@ -58,12 +70,14 @@ const Weathers = ({ weather, fetchWeatherData }) => {
           ({ id, location, temp, date, humidity, wind, current }) => (
             <WeatherCard
               key={id}
+              id={id}
               location={location}
               temp={temp}
               date={<Moment date={date} format="Do MMMM, YYYY" />}
               humidity={humidity}
               wind={wind}
               current={current}
+              onClick={handleCardClick}
             />
           )
         )}
@@ -75,10 +89,14 @@ const Weathers = ({ weather, fetchWeatherData }) => {
 Weathers.propTypes = {
   weather: PropTypes.array.isRequired,
   fetchWeatherData: PropTypes.func.isRequired,
+  chooseCurrentView: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ weather }) => ({
   weather,
 });
 
-export default connect(mapStateToProps, { fetchWeatherData })(Weathers);
+export default connect(mapStateToProps, {
+  fetchWeatherData,
+  chooseCurrentView,
+})(Weathers);

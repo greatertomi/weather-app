@@ -2,7 +2,7 @@ import { FETCH_DATA } from '../actions/types';
 
 const initialState = [];
 
-const alert = (state = initialState, action) => {
+const weatherReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -13,4 +13,4 @@ const alert = (state = initialState, action) => {
   }
 };
 
-export default alert;
+export default weatherReducer;
