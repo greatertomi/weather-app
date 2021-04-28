@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Row, Radio } from 'antd';
+import { Row, Radio, Alert } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,24 +7,25 @@ import Moment from 'react-moment';
 
 import WeatherCard from './WeatherCard';
 import { fetchWeatherData } from '../actions/weather';
+import { updateWeatherUnit } from '../actions/unit';
 import { chooseCurrentView } from '../actions/current-weather';
 import WeatherCardSkeleton from './WeatherCardSkeleton';
 
-// eslint-disable-next-line no-shadow
 const Weathers = ({
   weather,
   current,
+  unit,
   fetchWeatherData,
-  chooseCurrentView
+  chooseCurrentView,
+  updateWeatherUnit
 }) => {
-  const [unit, setUnit] = useState('celsius');
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const [loading, setLoading] = useState(true);
   const cardRef = useRef();
 
   const handleChangeUnit = (e) => {
-    setUnit(e.target.value);
+    updateWeatherUnit(e.target.value);
   };
 
   const scroll = (scrollOffset) => {
@@ -57,6 +58,7 @@ const Weathers = ({
             humidity={humidity}
             wind={wind}
             current={current.id === id}
+            unit={unit}
             onClick={handleCardClick}
           />
         ))}
@@ -71,6 +73,13 @@ const Weathers = ({
 
   return (
     <div>
+      <Alert
+        message="Error"
+        description="This is an error message about copywriting."
+        type="error"
+        showIcon
+        closable
+      />
       <div className="radios">
         <Radio.Group onChange={handleChangeUnit} value={unit}>
           <Radio value="celsius">Celsius</Radio>
@@ -80,12 +89,12 @@ const Weathers = ({
       <div className="navArrow">
         <BsArrowLeft
           size={40}
-          onClick={() => scroll(-300)}
+          onClick={() => scroll(-500)}
           style={{ visibility: showLeftArrow ? 'visible' : 'hidden' }}
         />
         <BsArrowRight
           size={40}
-          onClick={() => scroll(300)}
+          onClick={() => scroll(500)}
           style={{ visibility: showRightArrow ? 'visible' : 'hidden' }}
         />
       </div>
@@ -97,16 +106,20 @@ const Weathers = ({
 Weathers.propTypes = {
   current: PropTypes.object.isRequired,
   weather: PropTypes.array.isRequired,
+  unit: PropTypes.string.isRequired,
   fetchWeatherData: PropTypes.func.isRequired,
-  chooseCurrentView: PropTypes.func.isRequired
+  chooseCurrentView: PropTypes.func.isRequired,
+  updateWeatherUnit: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ weather, current }) => ({
+const mapStateToProps = ({ weather, current, unit }) => ({
   weather,
-  current
+  current,
+  unit
 });
 
 export default connect(mapStateToProps, {
   fetchWeatherData,
-  chooseCurrentView
+  chooseCurrentView,
+  updateWeatherUnit
 })(Weathers);

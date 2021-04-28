@@ -1,17 +1,19 @@
 import axios from 'axios';
 
 import { FETCH_DATA } from './types';
-import { WEATHER_URL } from '../utils/constants';
+import { CELSIUS_URL, FAHRENHEIT_URL } from '../utils/constants';
 // import { WEATHER_DATA } from '../utils/mock';
 
-export const fetchWeatherData = () => async (dispatch) => {
+export const fetchWeatherData = (unit) => async (dispatch) => {
   try {
-    // dispatch({
-    //   type: FETCH_DATA,
-    //   payload: WEATHER_DATA
-    // });
+    let url;
+    if (unit === 'fahrenheit') {
+      url = FAHRENHEIT_URL;
+    } else {
+      url = CELSIUS_URL;
+    }
 
-    const res = await axios.get(WEATHER_URL);
+    const res = await axios.get(url);
     const originalData = res.data.list;
     const dates = [...new Set(originalData.map((e) => e.dt_txt.slice(0, 10)))];
     const weatherData = [];
@@ -46,7 +48,6 @@ export const fetchWeatherData = () => async (dispatch) => {
       weatherData.push(oneWeatherData);
       idCount += 1;
     }
-    console.log(weatherData);
     dispatch({
       type: FETCH_DATA,
       payload: weatherData

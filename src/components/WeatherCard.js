@@ -13,7 +13,8 @@ const WeatherCard = ({
   humidity,
   wind,
   current,
-  onClick,
+  unit,
+  onClick
 }) => {
   return (
     <Col xs={24} md={12} lg={8} className="card">
@@ -30,7 +31,7 @@ const WeatherCard = ({
             <span id="temp">{temp}</span>
             <span id="unit">
               <span>o</span>
-              <span>C</span>
+              <span>{unit === 'celsius' ? 'C' : 'F'}</span>
             </span>
           </div>
           <div className="pt-2">
@@ -55,12 +56,13 @@ const WeatherCard = ({
 WeatherCard.propTypes = {
   id: PropTypes.number.isRequired,
   location: PropTypes.string.isRequired,
+  unit: PropTypes.string.isRequired,
   date: PropTypes.object.isRequired,
   temp: PropTypes.number.isRequired,
   humidity: PropTypes.number.isRequired,
   wind: PropTypes.number.isRequired,
   current: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default WeatherCard;
