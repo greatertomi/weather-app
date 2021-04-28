@@ -93,12 +93,12 @@ const Weathers = ({
       <div className="navArrow">
         <BsArrowLeft
           size={40}
-          onClick={() => scroll(-500)}
+          onClick={() => scroll(-400)}
           style={{ visibility: showLeftArrow ? 'visible' : 'hidden' }}
         />
         <BsArrowRight
           size={40}
-          onClick={() => scroll(500)}
+          onClick={() => scroll(400)}
           style={{ visibility: showRightArrow ? 'visible' : 'hidden' }}
         />
       </div>

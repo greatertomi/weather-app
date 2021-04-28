@@ -22,7 +22,7 @@ const WeatherChart = ({ current }) => {
 
   const displayChart = () => {
     return (
-      <ResponsiveContainer width="90%" height="100%">
+      <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={dayWeather}
           margin={{
