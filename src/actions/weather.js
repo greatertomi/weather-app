@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_DATA } from './types';
+import { FETCH_DATA, SET_ALERT } from './types';
 import { CELSIUS_URL, FAHRENHEIT_URL } from '../utils/constants';
 // import { WEATHER_DATA } from '../utils/mock';
 
@@ -53,7 +53,16 @@ export const fetchWeatherData = (unit) => async (dispatch) => {
       payload: weatherData
     });
   } catch (err) {
-    // TODO: Create an alert reducer
+    const alertData = {
+      type: 'error',
+      message: 'Error',
+      description: 'An error occurred while fetching weather data',
+      show: true
+    };
+    dispatch({
+      type: SET_ALERT,
+      payload: alertData
+    });
     console.log(err);
   }
 };

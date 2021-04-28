@@ -15,6 +15,7 @@ const Weathers = ({
   weather,
   current,
   unit,
+  alert,
   fetchWeatherData,
   chooseCurrentView,
   updateWeatherUnit
@@ -73,13 +74,16 @@ const Weathers = ({
 
   return (
     <div>
-      <Alert
-        message="Error"
-        description="This is an error message about copywriting."
-        type="error"
-        showIcon
-        closable
-      />
+      {alert.show && (
+        <Alert
+          message={alert.message}
+          description={alert.description}
+          type={alert.type}
+          showIcon
+          closable
+        />
+      )}
+
       <div className="radios">
         <Radio.Group onChange={handleChangeUnit} value={unit}>
           <Radio value="celsius">Celsius</Radio>
@@ -105,6 +109,7 @@ const Weathers = ({
 
 Weathers.propTypes = {
   current: PropTypes.object.isRequired,
+  alert: PropTypes.object.isRequired,
   weather: PropTypes.array.isRequired,
   unit: PropTypes.string.isRequired,
   fetchWeatherData: PropTypes.func.isRequired,
@@ -112,10 +117,11 @@ Weathers.propTypes = {
   updateWeatherUnit: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ weather, current, unit }) => ({
+const mapStateToProps = ({ weather, current, unit, alert }) => ({
   weather,
   current,
-  unit
+  unit,
+  alert
 });
 
 export default connect(mapStateToProps, {
