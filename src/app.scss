@@ -78,7 +78,10 @@
 .scrolling-wrapper-flexbox {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: hidden;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .cardSkeleton {
