@@ -2,12 +2,18 @@
 
 This is a React app that shows the weather of Munich.
 
-It is deployed here: <https://wallety.herokuapp.com/api/v1/>
+It is deployed [here](https://payoneerweatherapp.vercel.app/)
 
 ## Tools Used
 
 - React
 - Jest
+- Ant Design
+- Redux
+- SCSS
+- Recharts
+
+I used Ant Design because the components are well-designed, and it is highly customizable.
 
 ## Instructions
 
