@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import WeatherCard from '../src/components/WeatherCard';
+import WeatherCard from '../components/WeatherCard';
 
 const [onClick] = new Array(1).fill(jest.fn());
 
 const shallowSetup = () => {
-  // Sample props to pass to our shallow render
   const props = {
     id: '7ae5bfa3',
     location: 'Munich',
@@ -17,7 +16,6 @@ const shallowSetup = () => {
     unit: 'celsius',
     onClick
   };
-  // wrapper instance around rendered output
   const enzymeWrapper = shallow(<WeatherCard {...props} />);
 
   return {
@@ -31,6 +29,8 @@ describe('components', () => {
     it('should render self and subcomponents', () => {
       const { enzymeWrapper, props } = shallowSetup();
       expect(enzymeWrapper.find('h1').text()).toBe(props.location);
+      expect(enzymeWrapper.find('#subTitle').text()).toBe(props.date);
+      expect(enzymeWrapper.find('#temp').text()).toBe(props.temp);
     });
   });
 });
